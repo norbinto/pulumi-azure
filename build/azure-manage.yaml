@@ -21,6 +21,8 @@ stages:
                   displayName: 'Checkout code'
                   fetchDepth: 1
 
+                - script: ls
+                  displayName: 'ls for why not'
                 - task: DotNetCoreCLI@2
                   displayName: 'Build Azure Function'
                   inputs:
