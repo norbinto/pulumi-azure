@@ -41,7 +41,7 @@ stages:
                   artifact: drop
                 - task: AzureFunctionApp@1
                   inputs:
-                    azureSubscription: 'azureSubscriptionName'
+                    azureSubscription: 'norbinto0432'
                     appType: 'functionApp'
                     appName: 'magicforpulumi'
                     package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
