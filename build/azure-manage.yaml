@@ -25,7 +25,7 @@ stages:
                   displayName: 'Build Azure Function'
                   inputs:
                     command: 'build'
-                    projects: '$(appWorkingDir)/*.csproj'
+                    projects: '$(System.DefaultWorkingDirectory)/src/PulumiDestroy/*.csproj'
                     arguments: '--output $(System.DefaultWorkingDirectory)/publish_output --configuration Release'
                 - task: ArchiveFiles@2
                   displayName: 'Archive files'
