@@ -153,6 +153,8 @@ stages:
                       deployToSlotOrASE: true
                       deploymentMethod: 'auto'
     
+    
+
     - stage: verify_staging_app
       displayName: 'Run API tests'
       dependsOn: 
