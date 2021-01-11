@@ -38,15 +38,12 @@ stages:
                     archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
                     replaceExistingArchive: true
 
-                - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
-                  displayName: 'Publish Artifact'
-                  artifact: drop
                 - task: AzureFunctionApp@1
                   inputs:
                     azureSubscription: 'Service connection for Pulumi'
                     appType: 'functionApp'
                     appName: 'magicforpulumi'
-                    package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
+                    package: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
                     resourceGroupName: 'pulumi'
                     deploymentMethod: 'auto'
 
