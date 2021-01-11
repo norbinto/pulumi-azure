@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
@@ -18,7 +19,7 @@ namespace Xccelerated.Pulumi
         const string collectionUri = "https://dev.azure.com/norbinto0432";
         const string projectName = "pulumni";
         // personal access token
-        const string pat = Environment.GetEnvironmentVariable("PAT");
+        static string pat = Environment.GetEnvironmentVariable("PAT")??"error";
 
         [FunctionName("PulumiDestroy")]
         public static async Task<IActionResult> Run(
@@ -30,7 +31,7 @@ namespace Xccelerated.Pulumi
             var buildHttpClient = connection.GetClient<BuildHttpClient>();
             var buildDefinitionReferences = await buildHttpClient.GetDefinitionsAsync(projectName);
             
-            Console.WriteLine($"Found {buildDefinitionReferences.Count} Pipelines: [{string.Join(',', buildDefinitionReferences.Select(p => p.Name))}]");
+            log.LogInformation($"Found {buildDefinitionReferences.Count} Pipelines: [{string.Join(',', buildDefinitionReferences.Select(p => p.Name))}]");
 
             var build = new Build {
                 Definition = buildDefinitionReferences.Last(),
@@ -38,15 +39,9 @@ namespace Xccelerated.Pulumi
             };
             
             var buildQueueResult = await buildHttpClient.QueueBuildAsync(build, projectName);
-            Console.WriteLine(buildQueueResult.Reason.ToString());
+            log.LogInformation(buildQueueResult.Reason.ToString());
             
-            name = "";
-
-            string responseMessage = string.IsNullOrEmpty(name)
-                ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
-                : $"Hello, {name}. This HTTP triggered function executed successfully.";
-
-            return new OkObjectResult(responseMessage);
+            return new OkObjectResult("");
         }
     }
 }

@@ -1,5 +1,5 @@
 # pulumi-azure
-Pulumi managed infrastructure project for Azure
+Pulumi managed infrastructure project for Azure.
 
 ## Structure
 
