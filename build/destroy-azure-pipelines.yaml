@@ -7,5 +7,10 @@ steps:
 - script: echo Hello, world, Branch name is $(BRANCHNAME)!
   displayName: 'Run a one-line script'
 
-- script: pulumi down
-  displayName: Go down!!
+- task: Pulumi@1
+  condition: or(eq(variables['Build.Reason'], 'PullRequest'), eq(variables['Build.Reason'], 'Manual'))
+  inputs:
+    azureSubscription: 'Service connection for Pulumi'
+    command: 'destroy'
+    cwd: 'infra/'
+    stack: '$(BRANCHNAME)'
