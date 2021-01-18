@@ -1,7 +1,8 @@
 namespace Xccelerated.Pulumi{
 
     public class PulumiDAO{
-        public string Ref {get;set;}
+        public string Ref { get; set; }
+        
 
     }
 }

@@ -19,6 +19,7 @@ namespace Xccelerated.Pulumi
     {
         const string collectionUri = "https://dev.azure.com/norbinto0432";
         const string projectName = "pulumni";
+        private const string pipelineName = "destroy";
         // personal access token
         static string pat = Environment.GetEnvironmentVariable("PAT")??"error";
 
@@ -36,11 +37,19 @@ namespace Xccelerated.Pulumi
 
             string branch = req.Ref;
         
-            branch= branch.Replace("/","-");
+            branch= branch.Replace('/','-');
+
+            var buildDefinitionReference = buildDefinitionReferences.FirstOrDefault(reference => reference.Name == pipelineName);
+            
+            if (buildDefinitionReference is null)
+            {
+                log.LogWarning($"Expected to find {pipelineName} build definition reference");
+                return new OkResult();
+            }
 
             var build = new Build {
-                Definition = buildDefinitionReferences.Last(),
-                Parameters = "${\"norbi\":\"{branch}\"}"
+                Definition = buildDefinitionReference,
+                Parameters = $"{{\"norbi\":\"{branch}\"}}"
             };
             
             var buildQueueResult = await buildHttpClient.QueueBuildAsync(build, projectName);
