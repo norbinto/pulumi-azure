@@ -5,8 +5,6 @@ pool:
 
 variables:
   - group: 'AccessTokens'
-  - name: BN
-    value: asd
 
 steps:
 - script: echo Hello, world, Branch name is $(BRANCHNAME)!
@@ -21,5 +19,5 @@ steps:
     azureSubscription: 'Service connection for Pulumi'
     command: 'destroy'
     cwd: 'infra/'
-    stack: $(BN)
+    stack: $(branchName)
     
