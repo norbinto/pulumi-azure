@@ -10,9 +10,6 @@ steps:
 - script: echo Hello, world, Branch name is $(BRANCHNAME)!
   displayName: 'Run a one-line script'
 
-- script: echo '##vso[task.setvariable variable=BN]$[replace('$(BRANCHNAME)', ‘/‘, ‘-‘)]'
-  displayName: debug line
-
 - task: Pulumi@1
   condition: or(eq(variables['Build.Reason'], 'PullRequest'), eq(variables['Build.Reason'], 'Manual'))
   inputs:
