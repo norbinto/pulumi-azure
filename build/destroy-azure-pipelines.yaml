@@ -16,4 +16,5 @@ steps:
     azureSubscription: 'Service connection for Pulumi'
     command: 'destroy'
     cwd: 'infra/'
-    stack: '$(BRANCHNAME)'
+    stack: $[replace('$(BRANCHNAME)', ‘/‘, ‘-‘)]
+    
