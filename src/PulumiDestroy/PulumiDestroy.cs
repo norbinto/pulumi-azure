@@ -41,6 +41,7 @@ namespace Xccelerated.Pulumi
             var buildQueueResult = await buildHttpClient.QueueBuildAsync(build, projectName);
             log.LogInformation(buildQueueResult.Reason.ToString());
             
+            
             return new OkObjectResult("");
         }
     }
