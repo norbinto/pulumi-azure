@@ -33,10 +33,6 @@ namespace Xccelerated.Pulumi
             
             log.LogInformation($"Found {buildDefinitionReferences.Count} Pipelines: [{string.Join(',', buildDefinitionReferences.Select(p => p.Name))}]");
 
-
-
-
-
             var build = new Build {
                 Definition = buildDefinitionReferences.Last(),
                 Parameters = "{\"branchName\":\"passed-from-console-tool\"}"
