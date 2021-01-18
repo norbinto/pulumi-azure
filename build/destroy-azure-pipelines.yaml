@@ -10,11 +10,17 @@ steps:
 - script: echo Hello, world, Branch name is $(BRANCHNAME)!
   displayName: 'Run a one-line script'
 
+- script: export BN=$[replace('$(BRANCHNAME)', ‘/‘, ‘-‘)]
+  displayName: Replace character
+
+- script: echo $BN
+  displayName: debug line
+
 - task: Pulumi@1
   condition: or(eq(variables['Build.Reason'], 'PullRequest'), eq(variables['Build.Reason'], 'Manual'))
   inputs:
     azureSubscription: 'Service connection for Pulumi'
     command: 'destroy'
     cwd: 'infra/'
-    stack: $[replace('$(BRANCHNAME)', ‘/‘, ‘-‘)]
+    stack: $BN
     
