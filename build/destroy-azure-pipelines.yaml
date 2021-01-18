@@ -15,4 +15,5 @@ steps:
     command: 'destroy'
     cwd: 'infra/'
     stack: $(norbi)
+    args: '--yes'
     
