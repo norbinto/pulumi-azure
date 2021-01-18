@@ -5,13 +5,12 @@ pool:
 
 variables:
   - group: 'AccessTokens'
+  - name: BN
+    value: replace('$(BRANCHNAME)', ‘/‘, ‘-‘)
 
 steps:
 - script: echo Hello, world, Branch name is $(BRANCHNAME)!
   displayName: 'Run a one-line script'
-
-- script: export BN=$[replace('$(BRANCHNAME)', ‘/‘, ‘-‘)]
-  displayName: Replace character
 
 - script: echo $BN
   displayName: debug line
