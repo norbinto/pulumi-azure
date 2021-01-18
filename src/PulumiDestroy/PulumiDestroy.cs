@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using Microsoft.TeamFoundation.Build.WebApi;
 using Microsoft.VisualStudio.Services.Common;
 using Microsoft.VisualStudio.Services.WebApi;
+using System.Text;
 
 namespace Xccelerated.Pulumi
 {
@@ -33,15 +34,23 @@ namespace Xccelerated.Pulumi
             
             log.LogInformation($"Found {buildDefinitionReferences.Count} Pipelines: [{string.Join(',', buildDefinitionReferences.Select(p => p.Name))}]");
 
+            
+            StreamReader reader = new StreamReader(req.Body, Encoding.UTF8);
+            string reqbody= await reader.ReadToEndAsync();
+            dynamic tmp = JsonConvert.DeserializeObject(reqbody);
+            string branch = (string)tmp.Ref;
+        
+            branch= branch.Replace("-","/");
+
             var build = new Build {
                 Definition = buildDefinitionReferences.Last(),
-                Parameters = "{\"branchName\":\"passed-from-console-tool\"}"
+                Parameters = "${\"branchName\":\"{branch}\"}"
             };
             
             var buildQueueResult = await buildHttpClient.QueueBuildAsync(build, projectName);
             log.LogInformation(buildQueueResult.Reason.ToString());
             
-            
+
             return new OkObjectResult("");
         }
     }
