@@ -12,7 +12,7 @@ steps:
 - script: echo Hello, world, Branch name is $(BRANCHNAME)!
   displayName: 'Run a one-line script'
 
-- script: echo $BN
+- script: echo ${{variables.BN}}
   displayName: debug line
 
 - task: Pulumi@1
