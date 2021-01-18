@@ -8,7 +8,7 @@ stages:
   - stage: deploy_function_app_delete
     displayName: 'Deploy function app for pulumi down'
     variables:
-      azureFunctionAppName: magicforpulumi
+      azureFunctionAppName: pulumidestroy
     condition: succeeded()
     jobs:
       - deployment: Deploy
@@ -43,7 +43,7 @@ stages:
                   inputs:
                     azureSubscription: 'Service connection for Pulumi'
                     appType: 'functionApp'
-                    appName: 'magicforpulumi'
+                    appName: 'pulumidestroy'
                     package: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
                     resourceGroupName: 'pulumi'
                     deploymentMethod: 'auto'
