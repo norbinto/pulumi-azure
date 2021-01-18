@@ -16,5 +16,5 @@ steps:
     azureSubscription: 'Service connection for Pulumi'
     command: 'destroy'
     cwd: 'infra/'
-    stack: $(branchName)
+    stack: $(norbi)
     

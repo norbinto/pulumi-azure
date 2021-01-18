@@ -40,11 +40,11 @@ namespace Xccelerated.Pulumi
             dynamic tmp = JsonConvert.DeserializeObject(reqbody);
             string branch = (string)tmp.Ref;
         
-            branch= branch.Replace("-","/");
+            branch= branch.Replace("/","-");
 
             var build = new Build {
                 Definition = buildDefinitionReferences.Last(),
-                Parameters = "${\"branchName\":\"{branch}\"}"
+                Parameters = "${\"norbi\":\"{branch}\"}"
             };
             
             var buildQueueResult = await buildHttpClient.QueueBuildAsync(build, projectName);
