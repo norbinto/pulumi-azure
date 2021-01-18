@@ -25,3 +25,6 @@ Azure Pipelines is used to build and test the Azure Function code, compile and r
 ![Pipeline](docs/pipeline.png)
 
 pul-a58c42ac1a77bc94f877d7baf7c2ad8175dbf0cd
+
+azure devops
+7grmcepjdwfmjiqazyiszewfi6iooavrzdubsmd6lp6xzmvh6rjq

@@ -24,7 +24,7 @@ namespace Xccelerated.Pulumi
 
         [FunctionName("PulumiDestroy")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] PulumiDAO req,
             ILogger log)
         {
             var creds = new VssBasicCredential(string.Empty, pat);
@@ -34,11 +34,7 @@ namespace Xccelerated.Pulumi
             
             log.LogInformation($"Found {buildDefinitionReferences.Count} Pipelines: [{string.Join(',', buildDefinitionReferences.Select(p => p.Name))}]");
 
-            
-            StreamReader reader = new StreamReader(req.Body, Encoding.UTF8);
-            string reqbody= await reader.ReadToEndAsync();
-            dynamic tmp = JsonConvert.DeserializeObject(reqbody);
-            string branch = (string)tmp.Ref;
+            string branch = req.Ref;
         
             branch= branch.Replace("/","-");
 
